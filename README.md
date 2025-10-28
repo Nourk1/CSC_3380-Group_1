@@ -3,14 +3,14 @@
 > Plan trips, keep flight & lodging info, track activities, check the weather, and pack smarter — all in one simple website you can deploy on GitHub Pages.
 
 ## Why this exists
-Planning a trip often means bouncing between flight apps, lodging emails, calendars, and weather sites. That’s confusing and time-consuming. TripIt centralizes the essentials (flights, stay details, daily plan) in one place, so travelers spend less time hunting info and more time enjoying the trip. :contentReference[oaicite:1]{index=1}
+Planning a trip often means bouncing between flight apps, lodging emails, calendars, and weather sites. That’s confusing and time-consuming. TripIt centralizes the essentials (flights, stay details, daily plan) in one place, so travelers spend less time hunting info and more time enjoying the trip. 
 
 ## Core feature
-**Itinerary Manager:** add flights, accommodation details (w/ check-in notes), and day-by-day activities, all attached to a named trip. This reduces context-switching and helps keep the trip on track. :contentReference[oaicite:2]{index=2}
+**Itinerary Manager:** add flights, accommodation details (w/ check-in notes), and day-by-day activities, all attached to a named trip. This reduces context-switching and helps keep the trip on track. 
 
 ## Supplemental features
 - **Weather glance:** built-in weather lookup so you can plan days without leaving the app.  
-- **Packing list:** start from a smart template (based on trip length and forecast) or make your own checklist. :contentReference[oaicite:3]{index=3}
+- **Packing list:** start from a smart template (based on trip length and forecast) or make your own checklist. 
 
 ## Pages & navigation
 - **Home:** create/select a trip (stored in your browser via `localStorage`).  
