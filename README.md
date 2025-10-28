@@ -33,21 +33,6 @@ Planning a trip often means bouncing between flight apps, lodging emails, calend
    - Branch: `main`, folder: `/ (root)` → Save  
 5. Visit the public Pages URL GitHub shows you.
 
-project/
-├─ index.html
-├─ calendar.html
-├─ weather.html
-├─ packing.html
-├─ css/
-│ └─ styles.css
-├─ js/
-│ ├─ storage.js
-│ ├─ common.js
-│ ├─ calendar.js
-│ ├─ weather.js
-│ └─ packing.js
-└─ README.md
-
 ## Usage tips
 - Create a trip on **Home**, then navigate to Calendar/Weather/Packing.  
 - Your current trip persists in the browser. Switch trips anytime from the top bar.  
