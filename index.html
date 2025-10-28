@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TripIt • Itinerary Planner</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <script defer src="js/storage.js"></script>
+  <script defer src="js/common.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <h1>TripIt</h1>
+    <nav>
+      <a href="index.html" class="active">Home</a>
+      <a href="calendar.html">Calendar</a>
+      <a href="weather.html">Weather</a>
+      <a href="packing.html">Packing List</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h2>Create a New Trip</h2>
+      <form id="create-trip-form">
+        <label for="trip-name">Trip name</label>
+        <input id="trip-name" type="text" placeholder="e.g., NYC Fall Break" required />
+        <label for="trip-start">Start date</label>
+        <input id="trip-start" type="date" required />
+        <label for="trip-end">End date</label>
+        <input id="trip-end" type="date" required />
+        <button type="submit">Create Trip</button>
+      </form>
+    </section>
+
+    <section class="card">
+      <h2>Your Trips</h2>
+      <ul id="trip-list" class="list"></ul>
+    </section>
+
+    <section class="card">
+      <h2>Selected Trip</h2>
+      <div id="current-trip"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Made with HTML/CSS/JS • Deployed on GitHub Pages</p>
+  </footer>
+</body>
+</html>
