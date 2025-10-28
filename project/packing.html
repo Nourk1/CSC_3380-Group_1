@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TripIt • Packing List</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <script defer src="js/storage.js"></script>
+  <script defer src="js/common.js"></script>
+  <script defer src="js/packing.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <h1>TripIt</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="calendar.html">Calendar</a>
+      <a href="weather.html">Weather</a>
+      <a href="packing.html" class="active">Packing List</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h2>Packing List</h2>
+      <div class="grid-3">
+        <div>
+          <label for="new-item">Add item</label>
+          <input id="new-item" type="text" placeholder="e.g., Passport" />
+        </div>
+        <div class="align-end">
+          <button id="add-item">Add</button>
+        </div>
+        <div class="align-end">
+          <button id="generate">Generate suggestions</button>
+        </div>
+      </div>
+      <ul id="pack-list" class="list checklist"></ul>
+      <div class="grid-2">
+        <button id="clear-checked" class="danger">Remove checked</button>
+        <button id="reset-list" class="secondary">Reset to blank</button>
+      </div>
+      <p class="muted" id="pack-hint"></p>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Edit freely — everything saves to your browser for the selected trip.</p>
+  </footer>
+</body>
+</html>
