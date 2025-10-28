@@ -18,13 +18,13 @@ Planning a trip often means bouncing between flight apps, lodging emails, calend
 - **Weather:** search a city and view a daily 7-day forecast (Open-Meteo, no API key).  
 - **Packing List:** add/remove items, check them off, or auto-generate a starter list.
 
-## Usage tips
+## Usage Tips
 - Create a trip on **Home**, then navigate to Calendar/Weather/Packing.  
 - Your current trip persists in the browser. Switch trips anytime from the top bar.  
 - Weather: search a city; the app geocodes and fetches a 7-day outlook.  
 - Packing: click **Generate suggestions** (optional), then edit/checkbox as you like.
 
-## Acknowledgements & learning resources
-- W3Schools: basic website layouts and HTML/CSS how-tos  
-- GeeksforGeeks: beginner friendly JS app patterns and weather app tutorial ideas  
-- Open-Meteo API (no key) for forecast data
+## Acknowledgements & Learning Resources
+- W3Schools: basic website layouts and HTML/CSS how-tos.
+- GeeksforGeeks: beginner friendly JS app patterns and weather app tutorial ideas.  
+- Open-Meteo API (no key) for forecast data.
