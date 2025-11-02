@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TripIt • Calendar</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <script defer src="js/storage.js"></script>
+  <script defer src="js/common.js"></script>
+  <script defer src="js/calendar.js"></script>
+  <script defer src="js/calendar_view.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <h1>TripIt</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="calendar.html" class="active">Calendar</a>
+      <a href="calendar_view.html">Calendar View</a>
+      <a href="weather.html">Weather</a>
+      <a href="packing.html">Packing List</a>
+    </nav>
+  </header>
+  <head>
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar/index.global.min.js'></script>
+    <script>
+
+      document.addEventListener('DOMContentLoaded', function() {
+        const calendarEl = document.getElementById('calendar')
+        const calendar = new FullCalendar.Calendar(calendarEl, {
+          initialView: 'dayGridMonth'
+        })
+        calendar.render()
+      })
+
+    </script>
+  </head>
+  <body>
+    <div id='calendar'></div>
+  </body>
+</html>
