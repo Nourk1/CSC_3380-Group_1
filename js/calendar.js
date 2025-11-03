@@ -1,4 +1,3 @@
-// calendar.js
 function clampToTrip(dateStr) {
   const trip = getCurrentTrip(); if (!trip) return dateStr;
   const d = new Date(dateStr);

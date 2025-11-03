@@ -1,4 +1,3 @@
-// storage.js
 const STORAGE_KEY = "tripit.v1";
 
 function loadState() {
@@ -29,6 +28,13 @@ function setCurrentTrip(id) {
   saveState(st);
 }
 
+function removeTrip(id) {
+  const st = loadState();
+  if (id == getCurrentTrip) {st.getCurrentTrip = null}
+  st.trips.pop(id);
+  saveState(st);
+}
+
 function getCurrentTrip() {
   const st = loadState();
   return st.trips.find(t => t.id === st.currentTripId) || null;
@@ -49,6 +55,13 @@ function upsertAgenda(dateISO, entry) {
   day.push(entry);
   trip.agenda[dateISO] = day;
   updateTrip({ agenda: trip.agenda });
+}
+
+function addToCalendarView(dateISO, entry) {
+  const trip = getCurrentTrip();
+  if(!trip) return;
+  const day = trip.agenda[dateISO] || [];
+
 }
 
 function removeAgenda(dateISO, index) {

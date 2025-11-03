@@ -1,4 +1,3 @@
-// common.js
 function fmtDate(d) { return new Date(d).toLocaleDateString(); }
 
 function renderCurrentTripPill(el) {
@@ -31,6 +30,11 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  function getTripStartDay(){
+    const trip = getCurrentTrip();
+    return trip.start;
+  }
+  
   function bootstrapHome() {
     if (!list) return;
     const trips = listTrips();
@@ -48,6 +52,9 @@ document.addEventListener("DOMContentLoaded", () => {
         </div>
         <div>
           <button class="secondary" data-id="${t.id}">${active ? "Selected" : "Select"}</button>
+        </div>
+        <div>
+          <button class="danger" id="remove"> Remove </button>
         </div>`;
       list.appendChild(li);
     });
@@ -59,6 +66,13 @@ document.addEventListener("DOMContentLoaded", () => {
         const slot = document.getElementById("current-trip");
         if (slot) renderCurrentTripPill(slot);
       });
+    })
+
+    list.querySelectorAll("button[id]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        removeTrip(btn.dataset.id);
+        bootstrapHome();
+      })
     });
   }
 
