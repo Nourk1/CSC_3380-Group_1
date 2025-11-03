@@ -32,10 +32,23 @@ button {
 button.secondary { background: linear-gradient(180deg, #9aa0a6, #7f8790); color: #0a0a10; }
 button.danger { background: linear-gradient(180deg, var(--danger), #f25656); color: #0a0a10; }
 
+/* Layout helpers */
 .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; align-items: end; }
 .grid-3 { display: grid; grid-template-columns: 1.2fr .6fr .6fr; gap: 12px; align-items: end; }
 .align-end { display: flex; align-items: end; height: 100%; }
 
+/* NEW: spacing utilities to address “too close” buttons/controls */
+.mt-8 { margin-top: 8px; }
+.mt-12 { margin-top: 12px; }
+.mt-16 { margin-top: 16px; }
+.mb-12 { margin-bottom: 12px; }
+.gap-16 { gap: 16px; }
+.w-100 { width: 100%; }
+
+/* Improve form spacing globally */
+form .form-row { margin-bottom: 14px; }
+
+/* Lists */
 .list { list-style: none; padding: 0; margin: 0; }
 .list li { display: flex; align-items: center; justify-content: space-between; padding: 10px 12px; border: 1px solid var(--border); border-radius: 12px; background: #0f0f16; margin-top: 10px; }
 .list li .small { color: var(--muted); font-size: 12px; }
@@ -48,6 +61,7 @@ button.danger { background: linear-gradient(180deg, var(--danger), #f25656); col
 .footer { text-align: center; color: var(--muted); padding: 40px 0 20px; }
 .muted { color: var(--muted); }
 
+/* Weather */
 .forecast-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; margin-top: 12px; }
 .forecast-card { background: #0f0f16; border: 1px solid var(--border); border-radius: 12px; padding: 12px; }
 .forecast-card h4 { margin: 0 0 8px; font-size: 14px; }
