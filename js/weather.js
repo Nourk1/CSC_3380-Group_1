@@ -1,4 +1,4 @@
-async function geocodeCity(name) {
+async function geocodeCity(name) { // Converts a city's name to latitude and longitude.
   const url = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(name)}&count=1`;
   const res = await fetch(url);
   if (!res.ok) throw new Error("Geocoding failed");
@@ -8,7 +8,7 @@ async function geocodeCity(name) {
   return { lat: hit.latitude, lon: hit.longitude, label: `${hit.name}, ${hit.country_code}` };
 }
 
-async function fetchForecast(lat, lon) {
+async function fetchForecast(lat, lon) { // Gets the 7-day forecast of a city.
   const url =
     `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}` +
     `&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_mean` +
@@ -18,14 +18,14 @@ async function fetchForecast(lat, lon) {
   return await res.json();
 }
 
-function withinTrip(dateStr) {
+function withinTrip(dateStr) { // Check if the given date is within a trip's range.
   const trip = getCurrentTrip();
   if (!trip) return true;
   const d = new Date(dateStr);
   return d >= new Date(trip.start) && d <= new Date(trip.end);
 }
 
-function renderForecast(city, payload, limitToTripRange) {
+function renderForecast(city, payload, limitToTripRange) { // Displays a list of forecast cards for a given city.
   const f = document.getElementById("forecast");
   const note = document.getElementById("location-note");
   note.textContent = city;
@@ -48,14 +48,14 @@ function renderForecast(city, payload, limitToTripRange) {
   `).join("");
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () => { // Once the page loads, initialize all weather search features.
   const cityInput = document.getElementById("city");
   const searchBtn = document.getElementById("search");
   const useTripBtn = document.getElementById("use-trip-dates");
   let lastCity = null;
   let lastPayload = null;
 
-  async function doSearch(limitToTrip) {
+  async function doSearch(limitToTrip) { // Performs a weather search and displays the forecast.
     const city = cityInput.value.trim();
     if (!city) return;
     const cached = getCachedWeather(city);
@@ -77,8 +77,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  searchBtn.addEventListener("click", () => doSearch(false));
-  useTripBtn.addEventListener("click", () => {
+  searchBtn.addEventListener("click", () => doSearch(false)); // Shows the full forecast.
+  useTripBtn.addEventListener("click", () => { // Re-render only using the trip range if we already have fetched data. 
     if (lastPayload && lastCity) renderForecast(lastCity, lastPayload, true);
     else doSearch(true);
   });
