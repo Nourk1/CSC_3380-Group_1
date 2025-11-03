@@ -8,7 +8,6 @@
   <script defer src="js/storage.js"></script>
   <script defer src="js/common.js"></script>
   <script defer src="js/weather.js"></script>
-  <script defer src="js/calendar_view.js"></script>
 </head>
 <body>
   <header class="topbar">
@@ -17,7 +16,7 @@
       <a href="index.html">Home</a>
       <a href="calendar.html">Calendar</a>
       <a href="calendar_view.html">Calendar View</a>
-      <a href="weather.html" class="active">Weather</a>
+      <a href="weather.html">Weather</a>
       <a href="packing.html">Packing List</a>
     </nav>
   </header>
@@ -43,7 +42,7 @@
   </main>
 
   <footer class="footer">
-    <p>Powered by Open-Meteo (no API key required).</p>
+    <p>Powered by Open-Meteo (°F). Clear your old cache if you still see °C: <code>localStorage.removeItem('tripit.v2')</code>.</p>
   </footer>
 </body>
 </html>
