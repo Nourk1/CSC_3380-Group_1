@@ -1,13 +1,13 @@
-function fmtDate(d) { return new Date(d).toLocaleDateString(); }
+function fmtDate(d) { return new Date(d).toLocaleDateString(); } // Formats the data into a readable string.
 
-function renderCurrentTripPill(el) {
+function renderCurrentTripPill(el) { // Shows a little badge indicating that the trip is active.
   const trip = getCurrentTrip();
-  el.innerHTML = trip
+  el.innerHTML = trip  // Displace the name and date range of a selected trip. Otherwise, show a placeholder message.
     ? `<div class="badge">Current</div> <strong>${trip.name}</strong> · ${fmtDate(trip.start)} → ${fmtDate(trip.end)}`
     : `<span class="muted">No trip selected</span>`;
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () => { // Once the HTML document is fully loaded, run this code.
   const here = location.pathname.split("/").pop() || "index.html";
   document.querySelectorAll("header nav a").forEach(a => {
     const target = a.getAttribute("href");
@@ -18,11 +18,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const slot = document.getElementById("current-trip");
   if (slot) renderCurrentTripPill(slot);
 
-  const createForm = document.getElementById("create-trip-form");
+  const createForm = document.getElementById("create-trip-form"); // Handle the trip creation on the home page.
   const list = document.getElementById("trip-list");
   let rangeEl = document.getElementById("trip-range");
 
-  if (createForm) {
+  if (createForm) { // Attach the form handler if we are on the home page.
     createForm.addEventListener("submit", (e) => {
       e.preventDefault();
       const name = document.getElementById("trip-name").value.trim();
@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  function bootstrapHome() {
+  function bootstrapHome() { // Displays and refreshes the list of trips on the home page.
     if (!list) return;
     const trips = listTrips();
     list.innerHTML = "";
@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
       list.innerHTML = `<li class="muted">No trips yet — create one above.</li>`;
       return;
     }
-    trips.forEach(t => {
+    trips.forEach(t => { // For each trip, create a HTML element.
       const li = document.createElement("li");
       const active = (getCurrentTrip()?.id === t.id) ? " (current)" : "";
       li.innerHTML = `
@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
       list.appendChild(li);
     });
 
-    list.querySelectorAll("button[data-id]").forEach(btn => {
+    list.querySelectorAll("button[data-id]").forEach(btn => { // For each 'Select' button, create event listeners.
       btn.addEventListener("click", () => {
         setCurrentTrip(btn.dataset.id);
         bootstrapHome();
@@ -67,9 +67,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  bootstrapHome();
+  bootstrapHome();  // Once at load, run the home page trip list. 
 
-  const trip = getCurrentTrip();
+  const trip = getCurrentTrip(); // Display the current trip's date range on the other pages.
   if (trip && (rangeEl)) {
     rangeEl.textContent = `${fmtDate(trip.start)} → ${fmtDate(trip.end)}`;
   }
