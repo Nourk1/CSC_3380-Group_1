@@ -30,8 +30,11 @@ function setCurrentTrip(id) {
 
 function removeTrip(id) {
   const st = loadState();
-  if (id == getCurrentTrip) {st.getCurrentTrip = null}
-  st.trips.pop(id);
+  const idx = st.trips.findIndex(t => t.id === id);
+  if (idx >= 0) st.trips.splice(idx, 1);
+  if (st.currentTripId === id) {
+    st.currentTripId = st.trips[0]?.id ?? null;
+  }
   saveState(st);
 }
 
@@ -55,13 +58,6 @@ function upsertAgenda(dateISO, entry) {
   day.push(entry);
   trip.agenda[dateISO] = day;
   updateTrip({ agenda: trip.agenda });
-}
-
-function addToCalendarView(dateISO, entry) {
-  const trip = getCurrentTrip();
-  if(!trip) return;
-  const day = trip.agenda[dateISO] || [];
-
 }
 
 function removeAgenda(dateISO, index) {
@@ -90,6 +86,5 @@ function getCachedWeather(city) {
   if (!trip) return null;
   const hit = trip.weatherCache[city?.toLowerCase?.()];
   if (!hit) return null;
-  // 6h stale window
   return (Date.now() - hit.cachedAt) < 6 * 3600 * 1000 ? hit.payload : null;
 }

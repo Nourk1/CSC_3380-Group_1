@@ -1,4 +1,3 @@
-// weather.js
 async function geocodeCity(name) {
   const url = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(name)}&count=1`;
   const res = await fetch(url);
@@ -10,7 +9,7 @@ async function geocodeCity(name) {
 }
 
 async function fetchForecast(lat, lon) {
-  const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_mean&timezone=auto`;
+  const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_mean&timezone=auto&temperature_unit=fahrenheit`;
   const res = await fetch(url);
   if (!res.ok) throw new Error("Forecast failed");
   return await res.json();

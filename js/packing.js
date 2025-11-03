@@ -1,4 +1,3 @@
-// packing.js
 function renderList() {
   const ul = document.getElementById("pack-list");
   const trip = getCurrentTrip(); if (!trip) return;

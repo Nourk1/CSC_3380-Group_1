@@ -7,13 +7,12 @@
   <link rel="stylesheet" href="css/styles.css" />
   <script defer src="js/storage.js"></script>
   <script defer src="js/common.js"></script>
-  <script defer src="js/calendar_view.js"></script>
 </head>
 <body>
   <header class="topbar">
     <h1>TripIt</h1>
     <nav>
-      <a href="index.html" class="active">Home</a>
+      <a href="index.html">Home</a>
       <a href="calendar.html">Calendar</a>
       <a href="calendar_view.html">Calendar View</a>
       <a href="weather.html">Weather</a>
@@ -25,13 +24,19 @@
     <section class="card">
       <h2>Create a New Trip</h2>
       <form id="create-trip-form">
-        <label for="trip-name">Trip name</label>
-        <input id="trip-name" type="text" placeholder="e.g., NYC Fall Break" required />
-        <label for="trip-start">Start date</label>
-        <input id="trip-start" type="date" required />
-        <label for="trip-end">End date</label>
-        <input id="trip-end" type="date" required />
-        <button type="submit">Create Trip</button>
+        <div class="form-row">
+          <label for="trip-name">Trip name</label>
+          <input id="trip-name" type="text" placeholder="e.g., NYC Fall Break" required />
+        </div>
+        <div class="form-row">
+          <label for="trip-start">Start date</label>
+          <input id="trip-start" type="date" required />
+        </div>
+        <div class="form-row">
+          <label for="trip-end">End date</label>
+          <input id="trip-end" type="date" required />
+        </div>
+        <button type="submit" class="mt-12">Create Trip</button>
       </form>
     </section>
 
