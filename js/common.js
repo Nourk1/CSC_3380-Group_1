@@ -51,8 +51,9 @@ document.addEventListener("DOMContentLoaded", () => { // Once the HTML document 
         <div>
           <strong>${t.name}</strong><div class="small">${fmtDate(t.start)} → ${fmtDate(t.end)}</div>
         </div>
-        <div>
+        <div style="display:flex; gap:8px;">
           <button class="secondary" data-id="${t.id}">${active ? "Selected" : "Select"}</button>
+          <button class="danger" data-del="${t.id}">Remove</button> <!-- Remove button added -->
         </div>`;
       list.appendChild(li);
     });
@@ -60,6 +61,17 @@ document.addEventListener("DOMContentLoaded", () => { // Once the HTML document 
     list.querySelectorAll("button[data-id]").forEach(btn => { // For each 'Select' button, create event listeners.
       btn.addEventListener("click", () => {
         setCurrentTrip(btn.dataset.id);
+        bootstrapHome();
+        const slot2 = document.getElementById("current-trip");
+        if (slot2) renderCurrentTripPill(slot2);
+      });
+    });
+
+    list.querySelectorAll("button[data-del]").forEach(btn => { // Allows the user to remove any trips.
+      btn.addEventListener("click", () => {
+        const ok = confirm("Delete this trip? This action cannot be undone.");
+        if (!ok) return;
+        removeTrip(btn.dataset.del);
         bootstrapHome();
         const slot2 = document.getElementById("current-trip");
         if (slot2) renderCurrentTripPill(slot2);
