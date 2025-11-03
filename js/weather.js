@@ -1,4 +1,3 @@
-// weather.js
 async function geocodeCity(name) {
   const url = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(name)}&count=1`;
   const res = await fetch(url);
