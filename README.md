@@ -15,7 +15,7 @@ Planning a trip often means bouncing between flight apps, lodging emails, calend
 ## Pages & Navigation
 - **Home:** create/select a trip (stored in your browser via `localStorage`).  
 - **Calendar:** quick agenda for each day (travel times, activities, check-in/out).
-- **Calendar View:** 
+- **Calendar View:** a useful calendar view to assist in planning your trip
 - **Weather:** search a city and view a daily 7-day forecast (Open-Meteo, no API key).  
 - **Packing List:** add/remove items, check them off, or auto-generate a starter list.
 
