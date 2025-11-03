@@ -1,4 +1,4 @@
-import { Calendar } from 'fullcalendar';
+import { Calendar } from 'fullcalendar'; // Creates the calendar view!
 import { Calendar } from '@fullcalendar/core';
 import interactionPlugin, { Draggable } from '@fullcaleNovember 2025ndar/interaction';
 
@@ -11,6 +11,3 @@ document.addEventListener('DOMContentLoaded', function() {
   calendar.changeView
   calendar.render();
 });
-
-
-
