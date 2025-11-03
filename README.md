@@ -10,17 +10,19 @@ Planning a trip often means bouncing between flight apps, lodging emails, calend
 
 ## Supplemental Features
 - **Weather page:** built-in weather lookup so you can plan your days according to the weather without leaving the app.  
-- **Packing list:**  use a smart template (based on trip length and forecast) or make your own checklist. 
+- **Packing list:** use a smart template (based on trip length and forecast) or make your own checklist. 
 
 ## Pages & Navigation
 - **Home:** create/select a trip (stored in your browser via `localStorage`).  
-- **Calendar:** quick agenda for each day (travel times, activities, check-in/out).  
+- **Calendar:** quick agenda for each day (travel times, activities, check-in/out).
+- **Calendar View:** 
 - **Weather:** search a city and view a daily 7-day forecast (Open-Meteo, no API key).  
 - **Packing List:** add/remove items, check them off, or auto-generate a starter list.
 
 ## Usage Tips
-- Create a trip on **Home**, then navigate to Calendar/Weather/Packing.  
-- **Weather:** search a city; the app geocodes and fetches a 7-day outlook.  
+- Create a trip on **Home**, then navigate to Calendar/Weather/Packing.
+- Make sure you have created and selected a trip. Otherwise, some features like the packing list and using trip dates on the weather page **will not work** unless you have a trip added and selected.
+- **Weather:** search a city; the app geocodes and fetches a simple 7-day outlook (no hourly breakdown). If you see an error message, your network likely blocks Open-Meteo. 
 - **Packing:** click **Generate suggestions** (optional), then edit/checkbox as you like.
 
 ## How To Open The Project
@@ -28,5 +30,5 @@ Planning a trip often means bouncing between flight apps, lodging emails, calend
 
 ## Acknowledgements & Learning Resources
 - W3Schools: basic website layouts and HTML/CSS how-tos.
-- GeeksforGeeks: beginner friendly JS app patterns and weather app tutorial ideas.  
+- GeeksforGeeks: beginner-friendly JS app patterns and weather app tutorial ideas.  
 - Open-Meteo API (no key) for forecast data.
