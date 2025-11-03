@@ -26,7 +26,7 @@ Planning a trip often means bouncing between flight apps, lodging emails, calend
 - **Packing:** click **Generate suggestions** (optional), then edit/checkbox as you like.
 
 ## How To Open The Project
-- **Use Git Hub Pages:** Select the **<> Code** section at the top and find **Deployments** in the side bar on the right. Pick the most recent deployment.
+- **Use Git Hub Pages:** https://madisonharman.github.io/CSC_3380-Group_1/
 
 ## Acknowledgements & Learning Resources
 - W3Schools: basic website layouts and HTML/CSS how-tos.
