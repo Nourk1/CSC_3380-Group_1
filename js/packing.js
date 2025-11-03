@@ -39,7 +39,6 @@ function suggestItems() {
   const trip = getCurrentTrip(); if (!trip) return [];
   const days = Math.max(1, Math.ceil((new Date(trip.end) - new Date(trip.start)) / (1000*60*60*24)) + 1);
 
-  // Basic template
   const base = [
     "ID / Passport", "Wallet", "Phone & Charger", "Medication",
     "Toothbrush", "Toothpaste", "Deodorant", "Hairbrush",
@@ -48,12 +47,10 @@ function suggestItems() {
     "Sunscreen", "Water Bottle", "Snacks",
   ];
 
-  // Scale a couple items by trip length
   const scaled = [];
   for (let i = 0; i < Math.ceil(days/2); i++) scaled.push("Pairs of Socks");
   for (let i = 0; i < Math.ceil(days/2); i++) scaled.push("Underwear");
 
-  // If we have a cached forecast, add umbrellas/jackets probabilistically
   const tripCity = Object.keys(getCurrentTrip()?.weatherCache || {})[0];
   const cache = tripCity ? getCachedWeather(tripCity) : null;
   const weatherAdds = [];
