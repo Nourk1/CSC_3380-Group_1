@@ -8,14 +8,19 @@ function renderCurrentTripPill(el) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  // On every page: show current trip in a small slot if present
+  const here = location.pathname.split("/").pop() || "index.html";
+  document.querySelectorAll("header nav a").forEach(a => {
+    const target = a.getAttribute("href");
+    if (target === here) a.classList.add("active");
+    else a.classList.remove("active");
+  });
+
   const slot = document.getElementById("current-trip");
   if (slot) renderCurrentTripPill(slot);
 
-  // Home page bootstrap
   const createForm = document.getElementById("create-trip-form");
   const list = document.getElementById("trip-list");
-  const range = document.getElementById("trip-range");
+  let rangeEl = document.getElementById("trip-range");
 
   if (createForm) {
     createForm.addEventListener("submit", (e) => {
@@ -27,14 +32,10 @@ document.addEventListener("DOMContentLoaded", () => {
       createTrip({ name, start, end });
       createForm.reset();
       bootstrapHome();
+      if (slot) renderCurrentTripPill(slot);
     });
   }
 
-  function getTripStartDay(){
-    const trip = getCurrentTrip();
-    return trip.start;
-  }
-  
   function bootstrapHome() {
     if (!list) return;
     const trips = listTrips();
@@ -52,9 +53,6 @@ document.addEventListener("DOMContentLoaded", () => {
         </div>
         <div>
           <button class="secondary" data-id="${t.id}">${active ? "Selected" : "Select"}</button>
-        </div>
-        <div>
-          <button class="danger" id="remove"> Remove </button>
         </div>`;
       list.appendChild(li);
     });
@@ -63,24 +61,16 @@ document.addEventListener("DOMContentLoaded", () => {
       btn.addEventListener("click", () => {
         setCurrentTrip(btn.dataset.id);
         bootstrapHome();
-        const slot = document.getElementById("current-trip");
-        if (slot) renderCurrentTripPill(slot);
+        const slot2 = document.getElementById("current-trip");
+        if (slot2) renderCurrentTripPill(slot2);
       });
-    })
-
-    list.querySelectorAll("button[id]").forEach(btn => {
-      btn.addEventListener("click", () => {
-        removeTrip(btn.dataset.id);
-        bootstrapHome();
-      })
     });
   }
 
   bootstrapHome();
 
-  // Calendar header date range (if present)
   const trip = getCurrentTrip();
-  if (trip && (range = document.getElementById("trip-range"))) {
-    range.textContent = `${fmtDate(trip.start)} → ${fmtDate(trip.end)}`;
+  if (trip && (rangeEl)) {
+    rangeEl.textContent = `${fmtDate(trip.start)} → ${fmtDate(trip.end)}`;
   }
 });
