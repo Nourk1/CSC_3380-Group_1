@@ -1,9 +1,9 @@
 function clampToTrip(dateStr) { // Make sure a given date is clamped so it stays within a selected trip's range. 
   const trip = getCurrentTrip(); if (!trip) return dateStr;
   
-  const d = new Date(dateStr); // Convert the 'Date' objects.
-  const s = new Date(trip.start);
-  const e = new Date(trip.end);
+  const d = new Date(dateStr + "T00:00:00"); // Ensure consistent data handling.
+  const s = new Date(trip.start + "T00:00:00");
+  const e = new Date(trip.end + "T00:00:00");
   
   if (d < s) return trip.start; // If the date is before the start or end date, return them respectively.
   if (d > e) return trip.end;
@@ -14,9 +14,10 @@ function renderAgenda(dateISO) { // Based on the specific date, render the agend
   const trip = getCurrentTrip(); if (!trip) return;
   const container = document.getElementById("agenda-list");
   const items = trip.agenda[dateISO] || [];
+
   // Dynamically build the agenda list.
   container.innerHTML = ` 
-    <h3>${new Date(dateISO).toLocaleDateString()}</h3>
+    <h3>${new Date(dateISO + "T00:00:00").toLocaleDateString()}</h3>
     <ul class="list">
       ${items.map((it, i) => `
         <li>
@@ -49,17 +50,22 @@ document.addEventListener("DOMContentLoaded", () => { // When the page is ready,
   renderAgenda(trip.start); // Render the agenda for the first trip by default.
 
   document.getElementById("add-agenda").addEventListener("click", () => { // For the 'Add to day' button, add event listeners.
-    const dateISO = clampToTrip(dateInput.value || trip.start);
+    const dateISO = clampToTrip((dateInput.value || trip.start).split("T")[0]);
     const text = document.getElementById("agenda-item").value.trim();
     const time = document.getElementById("agenda-time").value;
     if (!text) return;
+
     const inferredTag = /flight|plane|depart|arrival/i.test(text) ? "Travel" :
                         /check-?in|check-?out/i.test(text) ? "Lodging" : "";
+
     upsertAgenda(dateISO, { text, time, tag: inferredTag });
     document.getElementById("agenda-item").value = "";
     document.getElementById("agenda-time").value = "";
     renderAgenda(dateISO);
   });
 
-  dateInput.addEventListener("change", () => renderAgenda(dateInput.value || trip.start)); // When the selected date changes, update the agenda view.
+  dateInput.addEventListener("change", () => { // When the selected date changes, update the agenda view.
+    const normalized = (dateInput.value || trip.start).split("T")[0];
+    renderAgenda(normalized);
+  });
 });
