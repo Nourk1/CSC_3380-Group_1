@@ -3,14 +3,14 @@
 > Plan trips, keep flight & lodging info, track activities, check the weather, and pack smarter — all in one simple website you can deploy on GitHub Pages.
 
 ## Why This Exists
-Planning a trip often means bouncing between flight apps, lodging emails, calendars, and weather sites. That’s confusing and time-consuming. TripIt centralizes the essentials (flights, stay details, daily plan) in one place, so travelers spend less time hunting info and more time enjoying the trip. 
+Planning a trip often means bouncing between flight apps, lodging emails, calendars, and weather sites. That’s confusing and time-consuming. TripIt centralizes the essentials (flights, lodging details, daily plan) in one place, so travelers spend less time hunting for info and more time enjoying the trip. 
 
 ## Core Feature
-**Itinerary Manager:** add flights, accommodation details (w/ check-in notes), and day-by-day activities, all attached to a named trip. This reduces context-switching and helps keep the trip on track. 
+**Itinerary Manager:** add flights, accommodation details (w/ check-in notes), and day-by-day activities, all attached to a named trip. This reduces context-switching and helps keep the trip on track.
 
 ## Supplemental Features
-- **Weather glance:** built-in weather lookup so you can plan days without leaving the app.  
-- **Packing list:** start from a smart template (based on trip length and forecast) or make your own checklist. 
+- **Weather page:** built-in weather lookup so you can plan your days according to the weather without leaving the app.  
+- **Packing list:**  use a smart template (based on trip length and forecast) or make your own checklist. 
 
 ## Pages & Navigation
 - **Home:** create/select a trip (stored in your browser via `localStorage`).  
@@ -20,9 +20,11 @@ Planning a trip often means bouncing between flight apps, lodging emails, calend
 
 ## Usage Tips
 - Create a trip on **Home**, then navigate to Calendar/Weather/Packing.  
-- Your current trip persists in the browser. Switch trips anytime from the top bar.  
-- Weather: search a city; the app geocodes and fetches a 7-day outlook.  
-- Packing: click **Generate suggestions** (optional), then edit/checkbox as you like.
+- **Weather:** search a city; the app geocodes and fetches a 7-day outlook.  
+- **Packing:** click **Generate suggestions** (optional), then edit/checkbox as you like.
+
+## How To Open The Project
+- **Use Git Hub Pages:** Select the **<> Code** section at the top and find **Deployments** in the side bar on the right. Pick the most recent deployment.
 
 ## Acknowledgements & Learning Resources
 - W3Schools: basic website layouts and HTML/CSS how-tos.
