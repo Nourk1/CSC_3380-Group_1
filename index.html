@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>TripIt • Itinerary Planner</title>
+  <title>TripIt • Itinerary Planner</title> // Creates a title in the tab titled 'TripIt • Itinerary Planner'.
   <link rel="stylesheet" href="css/styles.css" />
   <script defer src="js/storage.js"></script>
   <script defer src="js/common.js"></script>
 </head>
 <body>
-  <header class="topbar">
+  <header class="topbar"> // The top bar contains all of the available tabs thus far.
     <h1>TripIt</h1>
     <nav>
       <a href="index.html">Home</a>
@@ -22,10 +22,10 @@
 
   <main class="container">
     <section class="card">
-      <h2>Create a New Trip</h2>
+      <h2>Create a New Trip</h2> // Creates a new card titled 'New Trip'.
       <form id="create-trip-form">
         <div class="form-row">
-          <label for="trip-name">Trip name</label>
+          <label for="trip-name">Trip name</label> // Allows the user to create a new trip from start to end.
           <input id="trip-name" type="text" placeholder="e.g., NYC Fall Break" required />
         </div>
         <div class="form-row">
@@ -41,18 +41,18 @@
     </section>
 
     <section class="card">
-      <h2>Your Trips</h2>
+      <h2>Your Trips</h2> // Creates a new card that allows you to access your trips.
       <ul id="trip-list" class="list"></ul>
     </section>
 
     <section class="card">
-      <h2>Selected Trip</h2>
+      <h2>Selected Trip</h2> // Allows the user to look at their selected trip.
       <div id="current-trip"></div>
     </section>
   </main>
 
   <footer class="footer">
-    <p>Made with HTML/CSS/JS • Deployed on GitHub Pages</p>
+    <p>Made with HTML/CSS/JS • Deployed on GitHub Pages</p> // Gives the acknowledgements on the bottom of the page.
   </footer>
 </body>
 </html>
