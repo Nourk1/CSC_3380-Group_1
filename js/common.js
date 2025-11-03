@@ -2,7 +2,7 @@ function fmtDate(d) { return new Date(d).toLocaleDateString(); } // Formats the 
 
 function renderCurrentTripPill(el) { // Shows a little badge indicating that the trip is active.
   const trip = getCurrentTrip();
-  el.innerHTML = trip  // Displace the name and date range of a selected trip. Otherwise, show a placeholder message.
+  el.innerHTML = trip  // Displays the name and date range of a selected trip. Otherwise, show a placeholder message.
     ? `<div class="badge">Current</div> <strong>${trip.name}</strong> · ${fmtDate(trip.start)} → ${fmtDate(trip.end)}`
     : `<span class="muted">No trip selected</span>`;
 }
