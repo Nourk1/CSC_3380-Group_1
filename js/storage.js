@@ -1,4 +1,4 @@
-const STORAGE_KEY = "tripit.v1";
+const STORAGE_KEY = "tripit.v2"; 
 
 function loadState() {
   try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || { trips: [], currentTripId: null }; }
