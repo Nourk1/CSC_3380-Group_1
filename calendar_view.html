@@ -3,31 +3,16 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>TripIt • Calendar View</title>   <!-- Creates a title in the tab titled 'TripIt • Calendar View'. -->
+  <title>TripIt • Calendar View</title>
   <link rel="stylesheet" href="css/styles.css" />
   <script defer src="js/storage.js"></script>
   <script defer src="js/common.js"></script>
-
-  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js" defer></script>
-
-  <script defer>  // Creates a view for the calendar.
-    document.addEventListener('DOMContentLoaded', function () {
-      const el = document.getElementById('calendar');
-      const cal = new FullCalendar.Calendar(el, {
-        initialView: 'dayGridMonth',
-        height: 'auto',
-        themeSystem: 'standard'
-      });
-      cal.render();
-    });
-  </script>
-
+  <script defer src="js/calendar_view.js"></script>
+  <script defer src="js/notifications.js"></script>
   <link rel="icon" href="favicon.ico" type="image/x-icon">
-  
 </head>
 <body>
-  <header class="topbar"> <!-- The top bar contains all of the available tabs thus far. -->
+  <header class="topbar">
     <h1>TripIt</h1>
     <nav>
       <a href="index.html">Home</a>
@@ -35,22 +20,39 @@
       <a href="calendar_view.html">Calendar View</a>
       <a href="weather.html">Weather</a>
       <a href="packing.html">Packing List</a>
+      <button id="notif-bell" class="notif-bell">
+        🔔
+        <span id="notif-badge" class="notif-badge hidden">0</span>
+      </button>
     </nav>
   </header>
 
+  <!-- Notification Panel -->
+  <div id="notif-panel" class="notif-panel hidden">
+    <div class="notif-header">
+      <h3>Notifications</h3>
+      <button id="close-notif">✕</button>
+    </div>
+    <div id="notif-list" class="notif-list"></div>
+  </div>
+
   <main class="container">
     <section class="card">
-      <h2>Month View</h2>  <!-- Creates a new card titled 'Month View'. -->
-      <div id="calendar"></div>
+      <div class="calendar-header-controls">
+        <h2>Month View</h2>
+        <div class="month-nav">
+          <button id="prev-month" class="secondary">←</button>
+          <button id="today-btn" class="secondary">Today</button>
+          <button id="next-month" class="secondary">→</button>
+        </div>
+      </div>
+      <h3 id="current-month" class="muted mb-12"></h3>
+      <div id="calendar-grid"></div>
     </section>
   </main>
 
   <footer class="footer">
-    <p>Month overview powered by FullCalendar.</p  <!-- Has a small credit at the bottom of the page. -->
+    <p>Your agenda items from the Calendar page appear here automatically!</p>
   </footer>
 </body>
 </html>
-
-
-
-
