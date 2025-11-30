@@ -1,34 +1,51 @@
-const STORAGE_KEY = "tripit.v2"; // Key is used to store everything to a browser's localStorage.
+const STORAGE_KEY = "tripit.v3"; // Updated version for notifications
 
-function loadState() { // Loads all stored data from localStorage.
-  try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || { trips: [], currentTripId: null }; }
-  catch { return { trips: [], currentTripId: null }; }
+function loadState() {
+  try { 
+    const data = JSON.parse(localStorage.getItem(STORAGE_KEY));
+    return data || { trips: [], currentTripId: null, notifications: [] };
+  }
+  catch { 
+    return { trips: [], currentTripId: null, notifications: [] };
+  }
 }
 
-function saveState(state) { // Saves the state to localStorage.
+function saveState(state) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
 }
 
-function getState() { return loadState(); } // A getter to load the latest stored data.
+function getState() { 
+  return loadState(); 
+}
 
-function createTrip({ name, start, end }) { // Creates a new trip and makes it active.
+function createTrip({ name, start, end }) {
   const st = loadState();
   const id = crypto.randomUUID();
-  st.trips.push({ id, name, start, end, agenda: {}, packing: [], weatherCache: {} });
+  st.trips.push({ 
+    id, 
+    name, 
+    start, 
+    end, 
+    agenda: {}, 
+    packing: [], 
+    weatherCache: {} 
+  });
   st.currentTripId = id;
   saveState(st);
   return id;
 }
 
-function listTrips() { return loadState().trips; } // Returns an array of all of the saved trips.
+function listTrips() { 
+  return loadState().trips; 
+}
 
-function setCurrentTrip(id) { // Sets a specific trip as 'active'.
+function setCurrentTrip(id) {
   const st = loadState();
   st.currentTripId = id;
   saveState(st);
 }
 
-function removeTrip(id) { // Removes a trip based on its ID.
+function removeTrip(id) {
   const st = loadState();
   const idx = st.trips.findIndex(t => t.id === id);
   if (idx >= 0) st.trips.splice(idx, 1);
@@ -38,12 +55,12 @@ function removeTrip(id) { // Removes a trip based on its ID.
   saveState(st);
 }
 
-function getCurrentTrip() { // Gets the currently selected trip.
+function getCurrentTrip() {
   const st = loadState();
   return st.trips.find(t => t.id === st.currentTripId) || null;
 }
 
-function updateTrip(partial) { // Updates the current trip's data.
+function updateTrip(partial) {
   const st = loadState();
   const idx = st.trips.findIndex(t => t.id === st.currentTripId);
   if (idx === -1) return;
@@ -51,7 +68,7 @@ function updateTrip(partial) { // Updates the current trip's data.
   saveState(st);
 }
 
-function upsertAgenda(dateISO, entry) { // Creates a new agenda for a specific date.
+function upsertAgenda(dateISO, entry) {
   const trip = getCurrentTrip();
   if (!trip) return;
   const day = trip.agenda[dateISO] || [];
@@ -60,28 +77,28 @@ function upsertAgenda(dateISO, entry) { // Creates a new agenda for a specific d
   updateTrip({ agenda: trip.agenda });
 }
 
-function removeAgenda(dateISO, index) { // Removes an agenda for a specific date.
+function removeAgenda(dateISO, index) {
   const trip = getCurrentTrip();
   if (!trip || !trip.agenda[dateISO]) return;
   trip.agenda[dateISO].splice(index, 1);
   updateTrip({ agenda: trip.agenda });
 }
 
-function setPacking(list) { // Replaces the current trip's packing list.
+function setPacking(list) {
   const trip = getCurrentTrip();
   if (!trip) return;
   trip.packing = list;
   updateTrip({ packing: list });
 }
 
-function cacheWeather(city, payload) { // Caches the weather data for a city.
+function cacheWeather(city, payload) {
   const trip = getCurrentTrip();
   if (!trip) return;
   trip.weatherCache[city.toLowerCase()] = { payload, cachedAt: Date.now() };
   updateTrip({ weatherCache: trip.weatherCache });
 }
 
-function getCachedWeather(city) { // Retrieves the cached weather for a city.
+function getCachedWeather(city) {
   const trip = getCurrentTrip();
   if (!trip) return null;
   const hit = trip.weatherCache[city?.toLowerCase?.()];
