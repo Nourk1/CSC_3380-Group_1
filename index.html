@@ -3,14 +3,15 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>TripIt • Itinerary Planner</title>  <!-- Creates a title in the tab titled 'TripIt • Itinerary Planner'. -->
+  <title>TripIt • Itinerary Planner</title>
   <link rel="stylesheet" href="css/styles.css" />
   <script defer src="js/storage.js"></script>
   <script defer src="js/common.js"></script>
+  <script defer src="js/notifications.js"></script>
   <link rel="icon" href="favicon.ico" type="image/x-icon">
 </head>
 <body>
-  <header class="topbar">  <!-- The top bar contains all of the available tabs thus far. -->
+  <header class="topbar">
     <h1>TripIt</h1>
     <nav>
       <a href="index.html">Home</a>
@@ -18,15 +19,28 @@
       <a href="calendar_view.html">Calendar View</a>
       <a href="weather.html">Weather</a>
       <a href="packing.html">Packing List</a>
+      <button id="notif-bell" class="notif-bell">
+        🔔
+        <span id="notif-badge" class="notif-badge hidden">0</span>
+      </button>
     </nav>
   </header>
 
+  <!-- Notification Panel -->
+  <div id="notif-panel" class="notif-panel hidden">
+    <div class="notif-header">
+      <h3>Notifications</h3>
+      <button id="close-notif">✕</button>
+    </div>
+    <div id="notif-list" class="notif-list"></div>
+  </div>
+
   <main class="container">
     <section class="card">
-      <h2>Create a New Trip</h2>  <!-- Creates a new card titled 'New Trip'. -->
+      <h2>Create a New Trip</h2>
       <form id="create-trip-form">
         <div class="form-row">
-          <label for="trip-name">Trip name</label>  <!-- Allows the user to create a new trip from start to end. -->
+          <label for="trip-name">Trip name</label>
           <input id="trip-name" type="text" placeholder="e.g., NYC Fall Break" required />
         </div>
         <div class="form-row">
@@ -42,18 +56,18 @@
     </section>
 
     <section class="card">
-      <h2>Your Trips</h2>  <!-- Creates a new card that allows you to access your trips. -->
+      <h2>Your Trips</h2>
       <ul id="trip-list" class="list"></ul>
     </section>
 
     <section class="card">
-      <h2>Selected Trip</h2>  <!-- Allows the user to look at their selected trip. -->
+      <h2>Selected Trip</h2>
       <div id="current-trip"></div>
     </section>
   </main>
 
   <footer class="footer">
-    <p>Made with HTML/CSS/JS • Deployed on GitHub Pages</p>  <!-- Gives the acknowledgements on the bottom of the page. -->
+    <p>Made with HTML/CSS/JS • Deployed on GitHub Pages</p>
   </footer>
 </body>
 </html>
