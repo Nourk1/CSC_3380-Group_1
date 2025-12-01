@@ -24,6 +24,7 @@ function renderAgenda(dateISO) { // Based on the specific date, render the agend
           <div>
             <strong>${it.time || "—"}</strong> · ${it.text}
             ${it.tag ? ` <span class="badge">${it.tag}</span>` : ""}
+            ${it.reminder ? `<span class="badge" style="background: linear-gradient(180deg, #ff9500, #e88400);">🔔 ${formatReminderTime(it.reminder)}</span>` : ""}
           </div>
           <button class="danger" data-rm="${i}">Remove</button>
         </li>`).join("")}
@@ -36,6 +37,13 @@ function renderAgenda(dateISO) { // Based on the specific date, render the agend
       renderAgenda(dateISO);
     });
   });
+}
+
+function formatReminderTime(minutes) {
+  if (!minutes) return "";
+  if (minutes < 60) return `${minutes}m`;
+  if (minutes < 1440) return `${minutes / 60}h`;
+  return `${minutes / 1440}d`;
 }
 
 document.addEventListener("DOMContentLoaded", () => { // When the page is ready, initialize the agenda functionality.
@@ -53,14 +61,23 @@ document.addEventListener("DOMContentLoaded", () => { // When the page is ready,
     const dateISO = clampToTrip((dateInput.value || trip.start).split("T")[0]);
     const text = document.getElementById("agenda-item").value.trim();
     const time = document.getElementById("agenda-time").value;
+    const reminder = document.getElementById("reminder-time").value;
+    
     if (!text) return;
 
     const inferredTag = /flight|plane|depart|arrival/i.test(text) ? "Travel" :
                         /check-?in|check-?out/i.test(text) ? "Lodging" : "";
 
-    upsertAgenda(dateISO, { text, time, tag: inferredTag });
+    upsertAgenda(dateISO, { 
+      text, 
+      time, 
+      tag: inferredTag,
+      reminder: reminder ? parseInt(reminder) : null
+    });
+    
     document.getElementById("agenda-item").value = "";
     document.getElementById("agenda-time").value = "";
+    document.getElementById("reminder-time").value = "15"; // Reset to default
     renderAgenda(dateISO);
   });
 
