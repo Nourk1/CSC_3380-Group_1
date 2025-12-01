@@ -55,9 +55,21 @@
           <label for="agenda-time">Time (optional)</label>
           <input id="agenda-time" type="time" />
         </div>
-        <div class="align-end">
-          <button id="add-agenda">Add to day</button>
+        <div>
+          <label for="reminder-time">Reminder before event</label>
+          <select id="reminder-time">
+            <option value="">No reminder</option>
+            <option value="5">5 minutes before</option>
+            <option value="15" selected>15 minutes before</option>
+            <option value="30">30 minutes before</option>
+            <option value="60">1 hour before</option>
+            <option value="120">2 hours before</option>
+            <option value="1440">1 day before</option>
+          </select>
         </div>
+      </div>
+      <div class="align-end mt-8">
+        <button id="add-agenda">Add to day</button>
       </div>
 
       <div id="agenda-list"></div>
