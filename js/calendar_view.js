@@ -1,4 +1,4 @@
-// Calendar View - Shows agenda items in a monthly calendar
+// Traditional Month Calendar Grid
 
 let currentMonth = new Date();
 
@@ -26,17 +26,22 @@ function renderCalendar() {
   // Build calendar HTML
   let html = '';
   
-  // Day headers
+  // Day headers (Sun, Mon, Tue, etc.)
   ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].forEach(day => {
     html += `<div class="calendar-day-header">${day}</div>`;
   });
 
-  // Empty cells before month starts
+  // Empty cells for days before month starts
+  const prevMonth = new Date(year, month, 0);
+  const prevMonthDays = prevMonth.getDate();
+  const daysToShow = prevMonthDays - startingDayOfWeek + 1;
+  
   for (let i = 0; i < startingDayOfWeek; i++) {
-    html += '<div class="calendar-day empty"></div>';
+    const dayNum = daysToShow + i;
+    html += `<div class="calendar-day empty"><div class="day-number">${dayNum}</div></div>`;
   }
 
-  // Days of the month
+  // Days of current month
   const today = new Date();
   const todayStr = today.toISOString().split('T')[0];
 
@@ -44,40 +49,39 @@ function renderCalendar() {
     const date = new Date(year, month, day);
     const dateStr = date.toISOString().split('T')[0];
     const isToday = dateStr === todayStr;
-    const isInTrip = trip ? isDateInTrip(date, trip) : false;
     const agenda = trip?.agenda?.[dateStr] || [];
 
     let classes = 'calendar-day';
-    if (isInTrip) classes += ' in-trip';
     if (isToday) classes += ' today';
+
+    // Show first 3 events
+    const displayItems = agenda.slice(0, 3);
+    const remaining = agenda.length - displayItems.length;
 
     html += `<div class="${classes}">
       <div class="day-number">${day}</div>
       <div class="agenda-items">
-        ${agenda.slice(0, 3).map(item => {
-          const icon = item.tag === 'Travel' ? '✈️' : 
-                      item.tag === 'Lodging' ? '🏠' : 
-                      item.time ? '🕐' : '';
+        ${displayItems.map(item => {
           const itemClass = item.tag === 'Travel' ? 'travel' : 
                            item.tag === 'Lodging' ? 'lodging' : '';
-          return `
-            <div class="agenda-item ${itemClass}" title="${item.text}">
-              ${icon ? `<span class="agenda-item-icon">${icon}</span>` : ''}
-              <span>${item.text}</span>
-            </div>
-          `;
+          const displayText = item.time ? `${item.time} ${item.text}` : item.text;
+          return `<div class="agenda-item ${itemClass}" title="${displayText}">${displayText}</div>`;
         }).join('')}
-        ${agenda.length > 3 ? `<div class="agenda-more">+${agenda.length - 3} more</div>` : ''}
+        ${remaining > 0 ? `<div class="agenda-more">+${remaining} more</div>` : ''}
       </div>
     </div>`;
   }
 
-  grid.innerHTML = html;
-}
+  // Empty cells for days after month ends
+  const totalCells = startingDayOfWeek + daysInMonth;
+  const remainingCells = totalCells % 7;
+  if (remainingCells > 0) {
+    for (let i = 1; i <= 7 - remainingCells; i++) {
+      html += `<div class="calendar-day empty"><div class="day-number">${i}</div></div>`;
+    }
+  }
 
-function isDateInTrip(date, trip) {
-  const dateStr = date.toISOString().split('T')[0];
-  return dateStr >= trip.start && dateStr <= trip.end;
+  grid.innerHTML = html;
 }
 
 function changeMonth(delta) {
