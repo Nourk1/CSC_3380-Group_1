@@ -21,14 +21,23 @@ async function fetchForecast(lat, lon) { // Gets the 7-day forecast of a city.
 function withinTrip(dateStr) { // Check if the given date is within a trip's range.
   const trip = getCurrentTrip();
   if (!trip) return true;
-  const d = new Date(dateStr);
-  return d >= new Date(trip.start) && d <= new Date(trip.end);
+  const d = new Date(dateStr + 'T00:00:00');
+  const start = new Date(trip.start + 'T00:00:00');
+  const end = new Date(trip.end + 'T00:00:00');
+  return d >= start && d <= end;
 }
 
 function renderForecast(city, payload, limitToTripRange) { // Displays a list of forecast cards for a given city.
   const f = document.getElementById("forecast");
   const note = document.getElementById("location-note");
-  note.textContent = city;
+  
+  const trip = getCurrentTrip();
+  
+  if (limitToTripRange && trip) {
+    note.textContent = `${city} (${new Date(trip.start).toLocaleDateString()} - ${new Date(trip.end).toLocaleDateString()})`;
+  } else {
+    note.textContent = city;
+  }
 
   const days = payload.daily.time.map((t, i) => ({
     date: t,
@@ -38,11 +47,17 @@ function renderForecast(city, payload, limitToTripRange) { // Displays a list of
   }));
 
   const filtered = limitToTripRange ? days.filter(d => withinTrip(d.date)) : days;
+  
+  if (filtered.length === 0) {
+    f.innerHTML = '<p class="muted">No forecast data available for your trip dates.</p>';
+    return;
+  }
+  
   f.innerHTML = filtered.map(d => `
     <div class="forecast-card">
-      <h4>${new Date(d.date).toLocaleDateString()}</h4>
-      <div>High: <strong>${Math.round(d.tmax)}°</strong></div>
-      <div>Low: <strong>${Math.round(d.tmin)}°</strong></div>
+      <h4>${new Date(d.date + 'T00:00:00').toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })}</h4>
+      <div>High: <strong>${Math.round(d.tmax)}°F</strong></div>
+      <div>Low: <strong>${Math.round(d.tmin)}°F</strong></div>
       <div>Precip: <strong>${d.pop ?? 0}%</strong></div>
     </div>
   `).join("");
@@ -57,29 +72,67 @@ document.addEventListener("DOMContentLoaded", () => { // Once the page loads, in
 
   async function doSearch(limitToTrip) { // Performs a weather search and displays the forecast.
     const city = cityInput.value.trim();
-    if (!city) return;
-    const cached = getCachedWeather(city);
-    if (cached) {
-      lastCity = city;
-      lastPayload = cached;
-      renderForecast(city, cached, !!limitToTrip);
+    if (!city) {
+      alert("Please enter a city name");
       return;
     }
+    
     try {
+      searchBtn.disabled = true;
+      useTripBtn.disabled = true;
+      searchBtn.textContent = "Searching...";
+      
+      const cached = getCachedWeather(city);
+      if (cached) {
+        lastCity = city;
+        lastPayload = cached;
+        renderForecast(city, cached, limitToTrip);
+        searchBtn.textContent = "Search";
+        searchBtn.disabled = false;
+        useTripBtn.disabled = false;
+        return;
+      }
+      
       const { lat, lon, label } = await geocodeCity(city);
       const data = await fetchForecast(lat, lon);
       cacheWeather(city, data);
       lastCity = label;
       lastPayload = data;
-      renderForecast(label, data, !!limitToTrip);
+      renderForecast(label, data, limitToTrip);
+      
+      searchBtn.textContent = "Search";
+      searchBtn.disabled = false;
+      useTripBtn.disabled = false;
     } catch (e) {
-      document.getElementById("forecast").innerHTML = `<p class="muted">Could not fetch weather. Try again.</p>`;
+      document.getElementById("forecast").innerHTML = `<p class="muted">Could not fetch weather: ${e.message}. Please try again.</p>`;
+      searchBtn.textContent = "Search";
+      searchBtn.disabled = false;
+      useTripBtn.disabled = false;
     }
   }
 
   searchBtn.addEventListener("click", () => doSearch(false)); // Shows the full forecast.
-  useTripBtn.addEventListener("click", () => { // Re-render only using the trip range if we already have fetched data. 
-    if (lastPayload && lastCity) renderForecast(lastCity, lastPayload, true);
-    else doSearch(true);
+  
+  useTripBtn.addEventListener("click", () => { 
+    const trip = getCurrentTrip();
+    if (!trip) {
+      alert("Please select a trip first!");
+      return;
+    }
+    
+    if (lastPayload && lastCity) {
+      renderForecast(lastCity, lastPayload, true);
+    } else if (cityInput.value.trim()) {
+      doSearch(true);
+    } else {
+      alert("Please search for a city first");
+    }
+  });
+  
+  // Allow Enter key to search
+  cityInput.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") {
+      doSearch(false);
+    }
   });
 });
